@@ -2,25 +2,31 @@ import ReactDOM from 'react-dom';
 
 import classes from './notification.module.css';
 
-function Notification(props) {
-  const { title, message, status } = props;
+import NotificationContext from '../../store/notification-context';
+import { useContext } from 'react';
+
+function Notification() {
+  //const { title, message, status } = props;
+  const notificationContext = useContext(NotificationContext);
+
 
   let statusClasses = '';
-
-  if (status === 'success') {
+console.log("status is ", notificationContext.status);
+  if (notificationContext.status === 'success') {
     statusClasses = classes.success;
   }
 
-  if (status === 'error') {
+  if (notificationContext.status === 'error') {
     statusClasses = classes.error;
   }
+
 
   const cssClasses = `${classes.notification} ${statusClasses}`;
 
   return (
     <div className={cssClasses}>
-      <h2>{title}</h2>
-      <p>{message}</p>
+      <h2>{notificationContext.title}</h2>
+      <p>{notificationContext.message}</p>
     </div>
   );
 }

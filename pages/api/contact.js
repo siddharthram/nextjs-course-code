@@ -1,6 +1,7 @@
 import { MongoClient } from "mongodb";
 
 async function handler(req, res) {
+  console.log(req.body);
   if (req.method === "POST") {
     const { email, name, message } = req.body;
     console.log(email,name, message);
@@ -47,6 +48,7 @@ async function handler(req, res) {
   
   console.log("sending to client");
   client.close();
+  
   res.status(201).json({ message: "successfully stored message", message: newMessage });
   return;
 } 
