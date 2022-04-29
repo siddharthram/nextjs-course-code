@@ -31,6 +31,7 @@ async function handler(req, res) {
         "mongodb+srv://sramtesting1:vFdZLPGxfctda74u@cluster0.ztdrz.mongodb.net/my-site?retryWrites=true&w=majority"
       );
     } catch (error) {
+      console.log(error);
       res.status(500).json({ message: "something went wrong" });
       return;
     }

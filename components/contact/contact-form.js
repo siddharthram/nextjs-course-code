@@ -54,7 +54,7 @@ function ContactForm() {
     }
   }
 
-  let notification= null;
+  let notification;
   const context = useContext(NotificationContext);
 if (requestStatus != null){
   if (requestStatus === "pending") {

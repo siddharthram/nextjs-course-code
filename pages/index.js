@@ -1,7 +1,9 @@
 import { Fragment } from 'react';
+import Head from 'next/head';
 import FeaturedPosts from '../components/home-page/featured-posts';
 import Hero from '../components/home-page/hero';
 import { getFeaturedPosts } from '../lib/posts-util';
+import { FavoriteContextProvider } from '../store/notification-context';
 const DUMMY_POSTS = [
     {
         title: "about web performance",
@@ -32,6 +34,10 @@ const DUMMY_POSTS = [
 function HomePage(props) {
     return (
         <Fragment>
+            <Head>
+                <title> Siddharth's Blog</title>
+                <meta name="description" content="I write about Technology and Technlogy Management"/>
+            </Head>
             <Hero />
             <FeaturedPosts posts={props.posts} />
         </Fragment>
