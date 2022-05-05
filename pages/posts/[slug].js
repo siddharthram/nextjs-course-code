@@ -27,7 +27,7 @@ export function getStaticProps(content) {
     revalidate: 60 * 60, // seconds, for a single file only
   };
 }
-
+//If a page has Dynamic Routes and uses getStaticProps, it needs to define a list of paths to be statically generated.
 export function getStaticPaths() {
   const postFileNames = getPostsFiles();
 
