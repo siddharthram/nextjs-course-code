@@ -1,17 +1,15 @@
-import { Fragment } from 'react';
+import ContactForm from "../components/contact/contact-form";
 import Head from 'next/head';
-
-import ContactForm from '../components/contact/contact-form';
+import {Fragment} from 'react';
 
 function ContactPage() {
   return (
-    <Fragment>
+  <Fragment>
       <Head>
-        <title>Contact Me</title>
-        <meta name='description' content='Send me your messages!' />
+          <meta name="description" content="Send me your contact info"/>
       </Head>
-      <ContactForm />
-    </Fragment>
+      <ContactForm/>
+      </Fragment>
   );
 }
 

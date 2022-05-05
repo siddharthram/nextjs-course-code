@@ -1,55 +1,66 @@
-import { MongoClient } from 'mongodb';
+import { MongoClient } from "mongodb";
 
 async function handler(req, res) {
-  if (req.method === 'POST') {
+  console.log(req.body);
+  if (req.method === "POST") {
     const { email, name, message } = req.body;
+    console.log(email,name, message);
 
     if (
       !email ||
-      !email.includes('@') ||
+      !email.includes("@") ||
       !name ||
-      name.trim() === '' ||
+      !name.trim() === "" ||
       !message ||
-      message.trim() === ''
+      !message.trim() === ""
     ) {
-      res.status(422).json({ message: 'Invalid input.' });
+      res.status(400).json({ message: "invalid input" });
       return;
     }
 
+    // store in DB
     const newMessage = {
       email,
       name,
-      message,
+      message
     };
 
     let client;
-
-    const connectionString = `mongodb+srv://${process.env.mongodb_username}:${process.env.mongodb_password}@${process.env.mongodb_clustername}.ntrwp.mongodb.net/${process.env.mongodb_database}?retryWrites=true&w=majority`;
-
     try {
-      client = await MongoClient.connect(connectionString);
+      client = await MongoClient.connect(
+        "mongodb+srv://sramtesting1:vFdZLPGxfctda74u@cluster0.ztdrz.mongodb.net/my-site?retryWrites=true&w=majority"
+      );
     } catch (error) {
-      res.status(500).json({ message: 'Could not connect to database.' });
+      console.log(error);
+      res.status(500).json({ message: "something went wrong" });
       return;
     }
-
-    const db = client.db();
-
+    console.log("created client");
     try {
-      const result = await db.collection('messages').insertOne(newMessage);
+      const db = client.db();
+      const result = await db.collection("messages").insertOne(newMessage);
       newMessage.id = result.insertedId;
+
     } catch (error) {
       client.close();
-      res.status(500).json({ message: 'Storing message failed!' });
+      res.status(500).json({ message: "could not write" });
       return;
     }
+  
+  console.log("sending to client");
+  client.close();
+  
+  res.status(201).json({ message: "successfully stored message", message: newMessage });
+  return;
+} 
 
-    client.close();
-
-    res
-      .status(201)
-      .json({ message: 'Successfully stored message!', message: newMessage });
+    res.status(200).json({ message: "something went wrong" });
+    return;
   }
-}
+  
+  export default handler;
 
-export default handler;
+
+
+    
+   
